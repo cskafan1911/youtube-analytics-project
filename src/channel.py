@@ -1,6 +1,5 @@
 import os
 import json
-import isodate
 
 from googleapiclient.discovery import build
 
@@ -31,11 +30,19 @@ class Channel:
         """
         return cls.youtube
 
-    # @staticmethod
-    # def get_info():
-    #     """
-    #     Возвращает информацию о канале
-    #     """
-    #     info_channel = Channel.youtube.channels().list(id=self.channel_id, part='snippet,statistics')
-
-
+    def to_json(self, data):
+        """
+        Сохраняет значение атрибутов экземпляра класса в файл json
+        """
+        dict_channel = {'channel_id': self.channel_id, 'title': self.title, 'description': self.description,
+                        'url': self.url, 'subscriber_count': self.subscriber_count, 'video_count': self.video_count,
+                        'view_count': self.view_count}
+        with open(data, 'a') as file:
+            if os.stat(data).st_size == 0:
+                json.dump([dict_channel], file)
+            else:
+                with open(data) as json_file:
+                    data_json = json.load(json_file)
+                data_json.append(dict_channel)
+                with open(data, 'w') as json_file:
+                    json.dump([data_json], json_file)
