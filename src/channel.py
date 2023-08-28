@@ -76,4 +76,13 @@ class Channel:
                     data_json = json.load(json_file)
                 data_json.append(dict_channel)
                 with open(data, 'w') as json_file:
-                    json.dump([data_json], json_file)
+                    json.dump([data_json], json_file, indent=2, ensure_ascii=True)
+        #
+        # if os.path.exists(data): # проверили существует ли файл, если да:
+        #     with open(data, 'r') as file:
+        #         content = json.load(file) # считали список словарей в content
+        # else:
+        #     content = [] # создали пустой список в ту же content
+        #     content.append(dict_channel) # добавили новый словарь в список (полученный или созданный, не важно)
+        #     with open(data, 'w') as file:
+        #         json.dump(content, file, ensure_ascii=False, indent=2) # дампим данные в файл
