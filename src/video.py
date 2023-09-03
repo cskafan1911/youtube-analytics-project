@@ -28,12 +28,16 @@ class Video:
         return f"{self.video_title}"
 
 
-class PLVideo:
+class PLVideo(Video):
     """
     Класс для плейлиста
     """
 
-    def __init__(self, play_list_id):
+    def __init__(self, video_id, play_list_id):
         """
-        Экземпляр инициализирует
+        Экземпляр инициализирует id видео, id плейлиста
         """
+        super().__init__(video_id)
+        self.play_list_id = play_list_id
+
+    def
