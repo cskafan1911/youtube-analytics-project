@@ -11,3 +11,29 @@ class Video:
     API_KEY = os.getenv('YOUTUBE_API_KEY')
     youtube = build('youtube', 'v3', developerKey=API_KEY)
 
+    def __init__(self, video_id) -> None:
+        """
+        Экземпляр инициализирует id video. Дальше все данные будут подтягиваться по API.
+        """
+        self.video_id = video_id
+        self.video = self.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails', id=self.video_id).execute()
+        self.video_title = self.video['items'][0]['snippet']['title']
+        self.view_count = self.video['items'][0]['statistics']['viewCount']
+        self.like_count = self.video['items'][0]['statistics']['likeCount']
+
+    def __str__(self):
+        """
+        Возвращает название видео
+        """
+        return f"{self.video_title}"
+
+
+class PLVideo:
+    """
+    Класс для плейлиста
+    """
+
+    def __init__(self, play_list_id):
+        """
+        Экземпляр инициализирует
+        """
