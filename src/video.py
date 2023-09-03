@@ -39,5 +39,3 @@ class PLVideo(Video):
         """
         super().__init__(video_id)
         self.play_list_id = play_list_id
-
-    def
