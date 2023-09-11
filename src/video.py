@@ -16,17 +16,25 @@ class Video:
         Экземпляр инициализирует id video. Дальше все данные будут подтягиваться по API.
         """
         self.video_id = video_id
-        self.video = self.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                                id=self.video_id).execute()
-        self.video_title = self.video['items'][0]['snippet']['title']
-        self.view_count = self.video['items'][0]['statistics']['viewCount']
-        self.like_count = self.video['items'][0]['statistics']['likeCount']
+
+        try:
+            self.video = self.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
+                                                    id=self.video_id).execute()
+            self.title = self.video['items'][0]['snippet']['title']
+            self.view_count = self.video['items'][0]['statistics']['viewCount']
+            self.like_count = self.video['items'][0]['statistics']['likeCount']
+
+        except IndexError:
+            self.video = None
+            self.title = None
+            self.view_count = None
+            self.like_count = None
 
     def __str__(self):
         """
         Возвращает название видео
         """
-        return f"{self.video_title}"
+        return f"{self.title}"
 
 
 class PLVideo(Video):
